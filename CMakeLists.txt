@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.26)
+cmake_minimum_required(VERSION 3.29)
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing executable name in this file
 # for now, the project name is used as the executable name
@@ -42,11 +42,18 @@ include(cmake/Options.cmake)
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
-add_executable(${PROJECT_NAME}
-    main.cpp
-    generated/src/Helper.cpp
-)
+add_executable(oop
+        main.cpp
+        generated/src/Game.cpp
+        generated/include/Game.h
+        generated/src/Player.cpp
+        generated/include/Player.h
+        generated/include/Missile.h
+        generated/src/Missile.cpp
+        generated/include/MissileAlert.h
+        generated/src/MissileAlert.cpp
 
+)
 include(cmake/CompilerFlags.cmake)
 
 ###############################################################################
@@ -71,3 +78,9 @@ include(cmake/CopyHelper.cmake)
 copy_files(FILES tastatura.txt)
 # copy_files(FILES tastatura.txt config.json DIRECTORY images sounds)
 # copy_files(DIRECTORY images sounds)
+
+set(SFML_STATIC_LIBRARIES TRUE)
+set(SFML_DIR C:/SFML/lib/cmake/SFML)
+find_package(SFML COMPONENTS system window graphics audio network REQUIRED)
+include_directories(C:/SFML/include)
+target_link_libraries(oop sfml-system sfml-window sfml-graphics sfml-audio )

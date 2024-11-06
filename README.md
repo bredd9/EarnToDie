@@ -1,8 +1,8 @@
-# Titlu proiect
+# Jetpack Joyride
 
 ## Descriere proiect
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
+Mi-am ales acest proiect cu dorinta de a recrea un joc al copilariei mele, dar intr-un mod simplificat. 
+Jetpack Joyride este un endless runner in care personajul principal, Barry Steakfries, trebuie ajutat sa colecteze cati mai multi bani si in acelasi timp sa se fereasca de obstacole care pot aparea. In final, daca scorul obtinut de catre utilizator(acesta fiind calculat prin numarul de bani obtinuti) este destul de mare, acesta este trecut in leaderboardul aplicatiei. 
 ## Milestone #0
 
 - [ ] Nume proiect (poate fi schimbat ulterior)
