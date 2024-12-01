@@ -31,7 +31,7 @@ public:
     void update();
     void renderMissile(sf::RenderTarget& target);
     void launch(float yPosition);
-     bool isLaunched()const;
+    bool isLaunched()const;
 
 };
 #endif //MISSILE_H

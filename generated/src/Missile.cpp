@@ -28,8 +28,8 @@ bool Missile::isLaunched() const {
 
 
 Missile::Missile() {
-     launched=false;
-     speed=-3.0f;
+    launched=false;
+    speed=-3.0f;
     this->initTexture();
     this->initSprite();
 }
@@ -45,14 +45,14 @@ void Missile::update() {
 
     if (this->isLaunched()) {
         sprite.move(speed,0);
-    if(sprite.getPosition().x<0)
-        launched=false;
+        if(sprite.getPosition().x<0)
+            launched=false;
     }
 }
 
 void Missile::renderMissile(sf::RenderTarget &target) {
-if(this->isLaunched())
-    target.draw(this->sprite);
+    if(this->isLaunched())
+        target.draw(this->sprite);
 }
 
 

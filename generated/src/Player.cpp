@@ -7,11 +7,11 @@ void Player::initTexture() {
 
     if(!this->texture.loadFromFile("../resources/JetpackWalking.png"))
 
-        {
+    {
 
         std::cout << "Error loading texture" << std::endl;
 
-        }
+    }
 
 }
 
