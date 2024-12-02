@@ -56,25 +56,11 @@ void Missile::renderMissile(sf::RenderTarget &target) {
 }
 
 
-
-
 Missile::~Missile() {
 
 }
 
-Missile::Missile(const Missile &missile) {
-    this->sprite=missile.sprite;
-    this->texture=missile.texture;
-}
 
-Missile & Missile::operator=(const Missile &other) {
-    if(this == &other) {
-        sprite=other.sprite;
-        texture=other.texture;
-
-    }
-    return *this;
-}
 
 
 

@@ -21,10 +21,6 @@ private:
 public:
     MissileAlert();
     ~MissileAlert();
-
-    MissileAlert(const MissileAlert& missileAlert);
-    MissileAlert& operator=(const MissileAlert& other);
-
     void update(float playerY);
     float getY()const;
     void renderAlert(sf::RenderTarget& target);

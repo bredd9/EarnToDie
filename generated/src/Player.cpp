@@ -34,19 +34,6 @@ Player::Player() {
 
 }
 
-Player::Player(const Player &player) {
-    this->sprite=player.sprite;
-    this->texture=player.texture;
-}
-
-Player & Player::operator=(const Player &other) {
-    if(this == &other) {
-        sprite=other.sprite;
-        texture=other.texture;
-
-    }
-    return *this;
-}
 
 Player::~Player() {
 
@@ -65,8 +52,8 @@ void Player::update() {
         sprite.setPosition(sprite.getPosition().x,0);
         velocity.y=0;
     }
-    else if(sprite.getPosition().y+sprite.getGlobalBounds().height > 791) {
-        sprite.setPosition(sprite.getPosition().x, 791- sprite.getGlobalBounds().height);
+    else if(sprite.getPosition().y+sprite.getGlobalBounds().height > 740) {
+        sprite.setPosition(sprite.getPosition().x, 740- sprite.getGlobalBounds().height);
         velocity.y=0;
 
     }
@@ -76,7 +63,7 @@ void Player::update() {
 }
 
 
-void Player::render(sf::RenderTarget &target) {
+void Player::render(sf::RenderTarget &target) const {
     target.draw(this->sprite);
 }
 

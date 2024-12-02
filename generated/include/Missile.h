@@ -24,8 +24,7 @@ private:
 public:
     Missile();
     ~Missile();
-    Missile(const Missile& missile);
-    Missile& operator=(const Missile& other);
+
 
 
     void update();

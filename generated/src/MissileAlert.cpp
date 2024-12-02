@@ -31,18 +31,8 @@ void MissileAlert::initSprite() {
 MissileAlert::~MissileAlert() {
 }
 
-MissileAlert::MissileAlert(const MissileAlert &missileAlert) {
-    this->sprite=missileAlert.sprite;
-    this->texture=missileAlert.texture;
-}
 
-MissileAlert & MissileAlert::operator=(const MissileAlert &other) {
-    if(this == &other) {
-        sprite=other.sprite;
-        texture=other.texture;
 
-    }
-}
 
 float MissileAlert::getY() const {
     return sprite.getPosition().y;
@@ -61,7 +51,7 @@ bool MissileAlert::isAlerting() const {
 
 void MissileAlert::update(float playerY) {
     if(isAlerting()) {
-        this->sprite.setPosition(750-this->sprite.getGlobalBounds().width,playerY); // Follow player
+        this->sprite.setPosition(1200-this->sprite.getGlobalBounds().width,playerY); // Follow player
     }
     else {
         active=false;
@@ -70,7 +60,8 @@ void MissileAlert::update(float playerY) {
 
 
 void MissileAlert::renderAlert(sf::RenderTarget &target) {
-
+if(isAlerting()) {
     target.draw(this->sprite);
+}
 }
 

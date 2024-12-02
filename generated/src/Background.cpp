@@ -4,8 +4,9 @@
 
 #include <Background.h>
 
-Background::Background()
-    : speed(0), windowWidth(0), windowHeight(0) {}
+Background::Background() {
+
+}
 
 bool Background::initialize(const std::string& filepath, float scrollSpeed, int windowWidth, int windowHeight) {
     this->speed = scrollSpeed;
@@ -35,8 +36,8 @@ bool Background::initialize(const std::string& filepath, float scrollSpeed, int 
     return true; // Initialization successful
 }
 
-void Background::update(float deltaTime) {
-    float offset = speed * deltaTime;
+void Background::update(const float deltaTime) {
+    const float offset = speed * deltaTime;
 
     // Move both sprites to the left
     sprite1.move(-offset, 0);
@@ -52,6 +53,6 @@ void Background::update(float deltaTime) {
 }
 
 void Background::render(sf::RenderWindow& window) const {
-    window.draw(sprite1);
-    window.draw(sprite2);
+    window.draw(this->sprite1);
+    window.draw(this->sprite2);
 }

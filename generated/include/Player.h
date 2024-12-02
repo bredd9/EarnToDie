@@ -31,10 +31,8 @@ private:
 public:
     Player();
     ~Player();
-    Player(const Player& player);
-    Player& operator=(const Player& other);
     void update();
-    void render(sf::RenderTarget& target);
+    void render(sf::RenderTarget& target) const;
     void useJetpack(bool activate);
     sf::Sprite& getSprite() { return sprite; }
 
