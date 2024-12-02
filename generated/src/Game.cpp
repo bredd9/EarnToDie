@@ -74,7 +74,7 @@ void Game::pollEvents() {
 
 void Game::update() {
     this->pollEvents();
-    this->background->update(1.0/144.0f);
+    this->background->update(static_cast<float>(1.0/144.0f));
     this->player->update();
 
     //Move player
