@@ -67,6 +67,7 @@ void Game::pollEvents() {
                 if(this->event.key.code==sf::Keyboard::Escape)
                     this->window->close();
             break;
+            default: ;
         }
     }
 }
