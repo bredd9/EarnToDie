@@ -4,17 +4,9 @@
 #include <../include/Missile.h>
 
 
-void Missile::initTexture() {
-
-    if(!this->texture.loadFromFile("../resources/Missile.png"))
-    {
-        std::cout << "Error loading texture" << std::endl;
-    }
-
-}
-
-void Missile::initSprite() {
-    this->sprite.setTexture(this->texture);
+Missile::Missile(const std::string& textureFile) : Object(textureFile){
+    launched=false;
+    speed=-3.0f;
     this->sprite.setTextureRect({0,0,64,64});
 
     //Resize
@@ -27,15 +19,7 @@ bool Missile::isLaunched() const {
 }
 
 
-Missile::Missile() {
-    launched=false;
-    speed=-3.0f;
-    this->initTexture();
-    this->initSprite();
-}
-
-
-void Missile::launch(float yPosition){
+void Missile::launch(const float yPosition){
     this->sprite.setPosition(1200,yPosition);
     launched=true;
 }
@@ -50,13 +34,13 @@ void Missile::update() {
     }
 }
 
-void Missile::renderMissile(sf::RenderTarget &target) {
+void Missile::render(sf::RenderTarget &target) const {
     if(this->isLaunched())
         target.draw(this->sprite);
 }
 
 
-Missile::~Missile() {
+Missile::~Missile()  {
 
 }
 

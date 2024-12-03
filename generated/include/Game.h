@@ -21,8 +21,8 @@ private:
     sf::Event event;
     bool endGame;
     Player* player;
-    MissileAlert *missileAlert;
-    Missile *missile;
+    Object *missileAlert;
+    Object *missile;
     Background *background;
     void initVariables();
     void initWindow();
@@ -36,7 +36,6 @@ private:
 public:
     Game();
     ~Game();
-
     bool running() const;
     void pollEvents();
     void update();

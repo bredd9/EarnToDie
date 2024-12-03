@@ -64,6 +64,8 @@ add_executable(${PROJECT_NAME}
         generated/src/Background.cpp
         generated/src/Game.cpp
         env_fixes.h
+        generated/src/Object.cpp
+        generated/src/Object.cpp
 )
 
 include(cmake/CompilerFlags.cmake)

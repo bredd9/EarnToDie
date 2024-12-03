@@ -1,37 +1,18 @@
 //
 // Created by Vlad on 06-Nov-24.
 //
-#include <MissileAlert.h>
+#include <../include/MissileAlert.h>
 
-MissileAlert::MissileAlert() {
+MissileAlert::MissileAlert(const std::string& textureFile) :Object(textureFile) {
     active=false;
     alertDuration=4.0f;
-    this->initTexture();
-    this->initSprite();
-}
-
-
-
-void MissileAlert::initTexture() {
-    if(!this->texture.loadFromFile("../resources/MissileAlert.png"))
-
-    {
-
-        std::cout << "Error loading texture" << std::endl;
-
-    }
-}
-
-void MissileAlert::initSprite() {
-    this->sprite.setTexture(this->texture);
     this->sprite.setTextureRect({0,0,100,100});
+
+    //Scaling sprite
     this->sprite.scale(0.8f, 0.8f);
 }
 
-MissileAlert::~MissileAlert() {
-}
-
-
+MissileAlert::~MissileAlert() = default;
 
 
 float MissileAlert::getY() const {
@@ -45,11 +26,14 @@ void MissileAlert::alert() {
 }
 
 bool MissileAlert::isAlerting() const {
-    return active && timer.getElapsedTime().asSeconds()<alertDuration;
+    return active && (timer.getElapsedTime().asSeconds()<alertDuration && timer.getElapsedTime().asSeconds()>0.0f);
 }
 
 
-void MissileAlert::update(float playerY) {
+void MissileAlert::update(){
+}
+
+void MissileAlert::updateAlert(float playerY) {
     if(isAlerting()) {
         this->sprite.setPosition(1200-this->sprite.getGlobalBounds().width,playerY); // Follow player
     }
@@ -59,9 +43,10 @@ void MissileAlert::update(float playerY) {
 }
 
 
-void MissileAlert::renderAlert(sf::RenderTarget &target) {
+void MissileAlert::render(sf::RenderTarget &target) const {
 if(isAlerting()) {
     target.draw(this->sprite);
 }
 }
+
 

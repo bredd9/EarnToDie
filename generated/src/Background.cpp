@@ -8,7 +8,7 @@ Background::Background() {
 
 }
 
-bool Background::initialize(const std::string& filepath, float scrollSpeed, int windowWidth, int windowHeight) {
+bool Background::initialize(const std::string& filepath, const float scrollSpeed, const int windowWidth, const int windowHeight) {
     this->speed = scrollSpeed;
     this->windowWidth = windowWidth;
     this->windowHeight = windowHeight;

@@ -5,26 +5,23 @@
 #ifndef MISSILEALERT_H
 #define MISSILEALERT_H
 
-#include <iostream>
-#include <ctime>
-#include <SFML/Graphics.hpp>
+#include <Object.h>
 
-class MissileAlert {
+class MissileAlert : public Object {
 private:
-    sf::Sprite sprite;
-    sf::Texture texture;
+
     bool active;
     sf::Clock timer;
     float alertDuration;
-    void initSprite();
-    void initTexture();
-public:
-    MissileAlert();
-    ~MissileAlert();
-    void update(float playerY);
-    float getY()const;
-    void renderAlert(sf::RenderTarget& target);
 
+public:
+
+    MissileAlert(const std::string& textureFile);
+    ~MissileAlert() override;
+    void update() override;
+    void updateAlert(float playerY);
+    float getY()const;
+    void render(sf::RenderTarget& target) const override;
     void alert();
     bool isAlerting()const;
 

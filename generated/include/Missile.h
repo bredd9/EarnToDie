@@ -5,32 +5,27 @@
 #ifndef MISSILE_H
 #define MISSILE_H
 
-#include <iostream>
-#include <ctime>
-#include <SFML/Graphics.hpp>
+
+#include <Object.h>
 
 
-class Missile {
+class Missile : public Object {
 private:
 
-    sf::Sprite sprite;
-    sf::Texture texture;
     float speed;
     bool launched;
-    void initSprite();
-    void initTexture();
     float timer=0;
 
+
 public:
-    Missile();
-    ~Missile();
-
-
-
-    void update();
-    void renderMissile(sf::RenderTarget& target);
+    Missile(const std::string& textureFile);
+    ~Missile() override;
+    void update()override;
+    void render(sf::RenderTarget& target) const override;
     void launch(float yPosition);
-    bool isLaunched()const;
+    bool isLaunched() const;
+
+
 
 };
 #endif //MISSILE_H

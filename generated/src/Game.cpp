@@ -24,7 +24,6 @@ Game::~Game() {
 
 void Game::initVariables(){
     this->endGame = false;
-
 }
 
 void Game::initWindow() {
@@ -38,7 +37,7 @@ void Game::initBackground() {
     this->background = new Background();
     const float backgroundSpeed = 200.0f; // Scrolling speed for the background
     if (!this->background->initialize("../resources/Background.png", backgroundSpeed, windowWidth, windowHeight)) {
-        std::cout << "Failed to initialize background."<<std::endl;
+        throw std::runtime_error("Failed to initialize background");
          // Close the game if initialization fails
     }
 }
@@ -47,13 +46,13 @@ void Game::initPlayer() {
     this->player = new Player();
 }
 
-
-void Game::initMissile() {
-    this->missile = new Missile();
-}
 void Game::initMissileAlert() {
-    this->missileAlert = new MissileAlert();
+    this->missileAlert = new MissileAlert("../resources/MissileAlert.png");
 }
+void Game::initMissile() {
+    this->missile = new Missile("../resources/Missile.png");
+}
+
 
 
 
@@ -83,16 +82,15 @@ void Game::update() {
     else player->useJetpack(false);
 
 
-   if(!missile->isLaunched() && !missileAlert->isAlerting()) {
-        missileAlert->alert();
-
+   if(!static_cast<Missile *>(missile)->isLaunched() && !static_cast<MissileAlert *>(missileAlert)->isAlerting()) {
+        static_cast<MissileAlert *>(missileAlert)->alert();
     }
 
-    float playerY=player->getSprite().getPosition().y;
+    const float playerY=player->getSprite().getPosition().y;
 
-     missileAlert->update(playerY);
-    if(!missile->isLaunched() && !missileAlert->isAlerting()) {
-        missile->launch(missileAlert->getY());
+     static_cast<MissileAlert *>(missileAlert)->updateAlert(playerY);
+    if(!static_cast<Missile *>(missile)->isLaunched() && !static_cast<MissileAlert *>(missileAlert)->isAlerting()) {
+        static_cast<Missile *>(missile)->launch(static_cast<MissileAlert *>(missileAlert)->getY());
     }
     this->missile->update();
 }
@@ -102,8 +100,8 @@ void Game::render() const {
     this->window->clear();
     this->background->render(*this->window);
     this->player->render(*this->window);
-    this->missileAlert->renderAlert(*this->window);
-    this->missile->renderMissile(*this->window);
+    this->missileAlert->render(*this->window);
+    this->missile->render(*this->window);
     this->window->display();
 }
 
