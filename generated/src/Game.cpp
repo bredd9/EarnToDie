@@ -7,10 +7,12 @@
 Game::Game() {
     this->initVariables();
     this->initWindow();
+    this->initMenu();
     this->initBackground();
     this->initPlayer();
     this->initMissileAlert();
     this->initMissile();
+    this->initCoins();
 
 }
 
@@ -19,6 +21,8 @@ Game::~Game() {
     delete this->player;
     delete this->missile;
     delete this->missileAlert;
+    delete this->coinManager;
+    delete this->mainMenu;
 
 }
 
@@ -33,6 +37,15 @@ void Game::initWindow() {
     this->window->setVerticalSyncEnabled(false);
 }
 
+void Game::initMenu() {
+    this->mainMenu = new MainMenu(this->window,
+                                  "../resources/GameMenu.png",
+                                  "../resources/Logo.png",
+                                  "../resources/ButtonMenu.png",
+                                  "../resources/New Athletic M54.ttf");
+    this->isMenu = true; // Start in the menu phase
+}
+
 void Game::initBackground() {
     this->background = new Background();
     const float backgroundSpeed = 200.0f; // Scrolling speed for the background
@@ -41,6 +54,9 @@ void Game::initBackground() {
          // Close the game if initialization fails
     }
 }
+
+
+
 
 void Game::initPlayer() {
     this->player = new Player();
@@ -53,26 +69,52 @@ void Game::initMissile() {
     this->missile = new Missile("../resources/Missile.png");
 }
 
+void Game::initCoins() {
+    this->coinManager = new CoinManager("../resources/Coin.png", sf::Vector2f(windowWidth, windowHeight), 200.f);
+}
 
 
 
 void Game::pollEvents() {
-    while(this->window->pollEvent(this->event)) {
-        switch(this->event.type) {
+    while (this->window->pollEvent(this->event)) {
+        switch (this->event.type) {
             case sf::Event::Closed:
                 this->window->close();
             break;
             case sf::Event::KeyPressed:
-                if(this->event.key.code==sf::Keyboard::Escape)
+                if (this->event.key.code == sf::Keyboard::Escape)
                     this->window->close();
             break;
-            default: ;
+            case sf::Event::MouseButtonPressed:
+                if (this->isMenu) {
+                    switch (this->mainMenu->handleInput(this->event)) {
+                        case 0: // PLAY button
+                            this->isMenu = false; // Start to gameplay
+                        break;
+                        case 1: // SCOREBOARD button
+                            std::cout << "Scoreboard button clicked!" << std::endl;
+                        // Implement scoreboard logic here
+                        break;
+                        case 2: // RULES button
+                            std::cout << "Rules button clicked!" << std::endl;
+                        // Implement rules logic here
+                        break;
+                        default:
+                            break;
+                    }
+                }
+            break;
+            default:;
         }
     }
 }
 
 void Game::update() {
     this->pollEvents();
+    if (this->isMenu) {
+        // Skip gameplay updates when in the menu
+        return;
+    }
     this->background->update(static_cast<float>(1.0/144.0f));
     this->player->update();
 
@@ -81,27 +123,37 @@ void Game::update() {
         player->useJetpack(true);
     else player->useJetpack(false);
 
+    this->coinManager->update();
 
-   if(!static_cast<Missile *>(missile)->isLaunched() && !static_cast<MissileAlert *>(missileAlert)->isAlerting()) {
-        static_cast<MissileAlert *>(missileAlert)->alert();
+   if(!dynamic_cast<Missile *>(missile)->isLaunched() && !dynamic_cast<MissileAlert *>(missileAlert)->isAlerting()) {
+        dynamic_cast<MissileAlert *>(missileAlert)->alert();
     }
 
     const float playerY=player->getSprite().getPosition().y;
 
-     static_cast<MissileAlert *>(missileAlert)->updateAlert(playerY);
-    if(!static_cast<Missile *>(missile)->isLaunched() && !static_cast<MissileAlert *>(missileAlert)->isAlerting()) {
-        static_cast<Missile *>(missile)->launch(static_cast<MissileAlert *>(missileAlert)->getY());
+     dynamic_cast<MissileAlert *>(missileAlert)->updateAlert(playerY);
+    if(!dynamic_cast<Missile *>(missile)->isLaunched() && !dynamic_cast<MissileAlert *>(missileAlert)->isAlerting()) {
+        dynamic_cast<Missile *>(missile)->launch(dynamic_cast<MissileAlert *>(missileAlert)->getY());
+        dynamic_cast<Missile *>(missile)->update();
     }
-    this->missile->update();
+    dynamic_cast<Missile *>(missile)->update();
+
 }
 
 
 void Game::render() const {
     this->window->clear();
-    this->background->render(*this->window);
-    this->player->render(*this->window);
-    this->missileAlert->render(*this->window);
-    this->missile->render(*this->window);
+
+    if (this->isMenu) {
+        this->mainMenu->render(); // Render the main menu
+    } else {
+        this->background->render(*this->window);
+        this->player->render(*this->window);
+        this->missileAlert->render(*this->window);
+        this->missile->render(*this->window);
+        this->coinManager->render(*this->window);
+    }
+
     this->window->display();
 }
 

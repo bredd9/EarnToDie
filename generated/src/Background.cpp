@@ -4,8 +4,7 @@
 
 #include <Background.h>
 
-Background::Background() {
-
+Background::Background(): speed(0), windowWidth(0), windowHeight(0) {
 }
 
 bool Background::initialize(const std::string& filepath, const float scrollSpeed, const int windowWidth, const int windowHeight) {
@@ -23,9 +22,9 @@ bool Background::initialize(const std::string& filepath, const float scrollSpeed
     sprite2.setTexture(texture);
 
     // Adjust sizes if necessary
-    sf::Vector2u textureSize = texture.getSize();
-    float scaleX = static_cast<float>(windowWidth) / textureSize.x;
-    float scaleY = static_cast<float>(windowHeight) / textureSize.y;
+    const sf::Vector2u textureSize = texture.getSize();
+    const float scaleX = static_cast<float>(windowWidth) / textureSize.x;
+    const float scaleY = static_cast<float>(windowHeight) / textureSize.y;
     sprite1.setScale(scaleX, scaleY);
     sprite2.setScale(scaleX, scaleY);
 

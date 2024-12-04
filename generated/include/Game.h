@@ -10,6 +10,9 @@
 #include <Missile.h>
 #include <MissileAlert.h>
 #include <Background.h>
+#include <CoinManager.h>
+
+#include "MainMenu.h"
 
 class Game {
 
@@ -20,16 +23,21 @@ private:
     sf::RenderWindow *window;
     sf::Event event;
     bool endGame;
+    bool isMenu;
+    MainMenu *mainMenu;
     Player* player;
     Object *missileAlert;
     Object *missile;
     Background *background;
+    CoinManager* coinManager;
     void initVariables();
     void initWindow();
     void initPlayer();
     void initMissile();
+    void initCoins();
     void initMissileAlert();
     void initBackground();
+    void initMenu();
 
 
 

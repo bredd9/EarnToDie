@@ -66,6 +66,12 @@ add_executable(${PROJECT_NAME}
         env_fixes.h
         generated/src/Object.cpp
         generated/src/Object.cpp
+        generated/src/Coin.cpp
+        generated/include/Coin.h
+        generated/src/CoinManager.cpp
+        generated/include/MainMenu.h
+        generated/include/MainMenu.h
+        generated/src/MainMenu.cpp
 )
 
 include(cmake/CompilerFlags.cmake)
