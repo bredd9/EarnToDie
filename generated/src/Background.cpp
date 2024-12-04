@@ -7,10 +7,10 @@
 Background::Background(): speed(0), windowWidth(0), windowHeight(0) {
 }
 
-bool Background::initialize(const std::string& filepath, const float scrollSpeed, const int windowWidth, const int windowHeight) {
+bool Background::initialize(const std::string& filepath, const float scrollSpeed, const int Width, const int Height) {
     this->speed = scrollSpeed;
-    this->windowWidth = windowWidth;
-    this->windowHeight = windowHeight;
+    this->windowWidth = Width;
+    this->windowHeight = Height;
 
     if (!texture.loadFromFile(filepath)) {
         std::cout << "Failed to load background image " << "\n";
@@ -23,14 +23,14 @@ bool Background::initialize(const std::string& filepath, const float scrollSpeed
 
     // Adjust sizes if necessary
     const sf::Vector2u textureSize = texture.getSize();
-    const float scaleX = static_cast<float>(windowWidth) / textureSize.x;
-    const float scaleY = static_cast<float>(windowHeight) / textureSize.y;
+    const float scaleX = static_cast<float>(Width) / textureSize.x;
+    const float scaleY = static_cast<float>(Height) / textureSize.y;
     sprite1.setScale(scaleX, scaleY);
     sprite2.setScale(scaleX, scaleY);
 
     // Set the initial positions
     sprite1.setPosition(0, 0);
-    sprite2.setPosition(windowWidth, 0);
+    sprite2.setPosition(Width, 0);
 
     return true; // Initialization successful
 }

@@ -13,7 +13,7 @@ float Coin::randomFloat(float min, float max) {
 
 Coin::Coin(const std::string& textureFile) : Object(textureFile), speed(150.f) {
     this->sprite.setTextureRect({0,0,40,40});
-    this->sprite.setScale(0.5f, 0.5f);
+    this->sprite.setScale(1.f, 1.f);
     this->sprite.setRotation(randomFloat(0.f, 360.f));
 }
 

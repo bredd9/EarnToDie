@@ -83,11 +83,10 @@ void CoinManager::update() {
     }
 
     // Remove coins that are off the screen
-    coins.erase(std::remove_if(coins.begin(), coins.end(),
-                               [this](const Coin& coin) {
-                                   return coin.getX() + coin.getWidth() < 0; // Off the left side
-                               }),
-                coins.end());
+    std::erase_if(coins,
+                  [](const Coin& coin) {
+                      return coin.getX() + coin.getWidth() < 0; // Off the left side
+                  });
 
     // Check if it's time to spawn a new sequence
     if (spawnClock.getElapsedTime().asSeconds() > spawnInterval) {
