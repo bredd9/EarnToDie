@@ -1,7 +1,6 @@
 //
 // Created by Vlad on 03-Dec-24.
 //
-
 #include <Coin.h>
 
 float Coin::randomFloat(float min, float max) {
