@@ -7,6 +7,7 @@
 
 
 #include <Object.h>
+#include <Animate.h>
 
 
 class Missile : public Object {
@@ -21,6 +22,7 @@ public:
     Missile(const std::string& textureFile);
     ~Missile() override;
     void update()override;
+    void updateMissile(float deltaTime);
     void render(sf::RenderTarget& target) const override;
     void launch(float yPosition);
     bool isLaunched() const;

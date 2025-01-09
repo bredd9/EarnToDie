@@ -19,6 +19,7 @@ public:
     virtual ~Object();
     virtual void update()=0;
     virtual void render(sf::RenderTarget& target)const=0;
+    const sf::Sprite& getSprite() const { return this->sprite; }
 };
 
 #endif //OBJECT_H

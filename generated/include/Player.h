@@ -11,6 +11,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/System.hpp>
+#include <Animate.h>
 
 class Player {
 
@@ -18,12 +19,11 @@ private:
     sf::Sprite sprite;
     sf::Texture texture;
     sf::Vector2f velocity;
-
+    Animate* animator;
     float gravity;
     float jetpackPower;
     bool isUsingJetpack;
-    void initTexture();
-    void initSprite();
+
 
 
 
@@ -31,10 +31,10 @@ private:
 public:
     Player();
     ~Player();
-    void update();
+    void update(float deltaTime);
     void render(sf::RenderTarget& target) const;
     void useJetpack(bool activate);
-    sf::Sprite& getSprite() { return sprite; }
+    const sf::Sprite& getSprite() { return sprite; }
 
 
 

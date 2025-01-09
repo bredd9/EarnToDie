@@ -52,7 +52,6 @@ endif()
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
 add_executable(${PROJECT_NAME}
         main.cpp
-        generated/src/Game.cpp
         generated/include/Game.h
         generated/src/Player.cpp
         generated/include/Player.h
@@ -68,10 +67,13 @@ add_executable(${PROJECT_NAME}
         generated/src/Object.cpp
         generated/src/Coin.cpp
         generated/include/Coin.h
-        generated/src/CoinManager.cpp
-        generated/include/MainMenu.h
         generated/include/MainMenu.h
         generated/src/MainMenu.cpp
+        generated/include/Collision.h
+        generated/src/Collision.cpp
+        generated/src/Animate.cpp
+        generated/include/Scoreboard.h
+        generated/src/Scoreboard.cpp
 )
 
 include(cmake/CompilerFlags.cmake)

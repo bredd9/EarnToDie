@@ -12,6 +12,7 @@ bool Background::initialize(const std::string& filepath, const float scrollSpeed
     this->windowWidth = Width;
     this->windowHeight = Height;
 
+
     if (!texture.loadFromFile(filepath)) {
         std::cout << "Failed to load background image " << "\n";
         return false; // Initialization failed

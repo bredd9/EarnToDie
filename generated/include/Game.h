@@ -10,9 +10,9 @@
 #include <Missile.h>
 #include <MissileAlert.h>
 #include <Background.h>
-#include <CoinManager.h>
-
-#include "MainMenu.h"
+#include <Collision.h>
+#include <MainMenu.h>
+#include <Scoreboard.h>
 
 class Game {
 
@@ -22,6 +22,7 @@ private:
     sf::VideoMode videoMode;
     sf::RenderWindow *window;
     sf::Event event;
+    sf::Clock clock;
     bool endGame;
     bool isMenu;
     MainMenu *mainMenu;
@@ -29,15 +30,15 @@ private:
     Object *missileAlert;
     Object *missile;
     Background *background;
-    CoinManager* coinManager;
+    Scoreboard* scoreboard;
     void initVariables();
     void initWindow();
     void initPlayer();
     void initMissile();
-    void initCoins();
     void initMissileAlert();
     void initBackground();
     void initMenu();
+    void initScoreboard();
 
 
 
@@ -46,7 +47,7 @@ public:
     ~Game();
     bool running() const;
     void pollEvents();
-    void update();
+    void update(float deltaTime);
     void render() const;
 
 };

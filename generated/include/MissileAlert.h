@@ -6,6 +6,7 @@
 #define MISSILEALERT_H
 
 #include <Object.h>
+#include <Animate.h>
 
 class MissileAlert : public Object {
 private:
@@ -14,12 +15,13 @@ private:
     sf::Clock timer;
     float alertDuration;
 
+    Animate *animator;
 public:
 
     MissileAlert(const std::string& textureFile);
     ~MissileAlert() override;
     void update() override;
-    void updateAlert(float playerY);
+    void updateAlert(float playerY, float deltaTime);
     float getY()const;
     void render(sf::RenderTarget& target) const override;
     void alert();

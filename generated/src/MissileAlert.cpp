@@ -3,13 +3,22 @@
 //
 #include <../include/MissileAlert.h>
 
-MissileAlert::MissileAlert(const std::string& textureFile) :Object(textureFile) {
-    active=false;
-    alertDuration=4.0f;
-    this->sprite.setTextureRect({0,0,100,100});
+MissileAlert::MissileAlert(const std::string& textureFile) : Object(textureFile) {
+    active = false;
+    alertDuration = 4.0f;
+    this->sprite.setTextureRect({0, 0, 100, 100});
 
-    //Scaling sprite
+    // Scaling sprite
     this->sprite.scale(0.8f, 0.8f);
+
+    // Define animation frames
+    std::vector<sf::IntRect> frames = {
+        {0, 0, 100, 100},   // Frame 1
+        {100, 0, 100, 100}, // Frame 2
+    };
+
+    // Initialize animator
+    animator = new Animate(sprite, frames, 2.5f); // Animation speed: 0.2 seconds per frame
 }
 
 MissileAlert::~MissileAlert() = default;
@@ -33,9 +42,10 @@ bool MissileAlert::isAlerting() const {
 void MissileAlert::update(){
 }
 
-void MissileAlert::updateAlert(float playerY) {
+void MissileAlert::updateAlert(float playerY, float deltaTime) {
     if(isAlerting()) {
         this->sprite.setPosition(1200-this->sprite.getGlobalBounds().width,playerY); // Follow player
+        animator->update(deltaTime);
     }
     else {
         active=false;
@@ -44,9 +54,8 @@ void MissileAlert::updateAlert(float playerY) {
 
 
 void MissileAlert::render(sf::RenderTarget &target) const {
-if(isAlerting()) {
-    target.draw(this->sprite);
+    if(isAlerting()) {
+        target.draw(this->sprite);
+    }
 }
-}
-
 

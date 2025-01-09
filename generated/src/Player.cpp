@@ -3,44 +3,51 @@
 //
 #include "../include/Player.h"
 
-void Player::initTexture() {
-
-    if(!this->texture.loadFromFile("../resources/JetpackWalking.png"))
-
-    {
-
-        std::cout << "Error loading texture" << std::endl;
-
-    }
-
-}
-
-void Player::initSprite() {
-    this->sprite.setTexture(this->texture);
-    this->sprite.setTextureRect({0,0,75,100});
-
-    //Resize
-    this->sprite.scale(1.0f, 1.0f);
-    this->sprite.setPosition(150,791);
-
-}
 
 Player::Player() {
-    gravity=1.3f;
-    jetpackPower=-2.0f;
+    gravity=5.0f;
+    jetpackPower=-5.0f;
     isUsingJetpack=false;
-    this->initTexture();
-    this->initSprite();
+    velocity = sf::Vector2f(0.0f, 0.0f);
 
+    if (!this->texture.loadFromFile("../resources/JetpackWalking.png")) {
+        std::cout << "Error loading texture" << std::endl;
+    }
+
+    this->sprite.setTexture(this->texture);
+    this->sprite.setTextureRect({0, 0, 75, 100});
+    this->sprite.setPosition(150, 791);
+
+    // Set up animation frames (example)
+    std::vector<sf::IntRect> frames = {
+        {0, 0, 75, 100},   // Frame 1
+        {75, 0, 75, 100},  // Frame 2
+        {150, 0, 75, 100}, // Frame 3
+    };
+
+    // Create an animator for this player
+    animator = new Animate(sprite, frames, 1.5f ); // 0.1f is the animation speed
 }
 
 
 Player::~Player() {
-
+delete animator;
 }
 
-void Player::update() {
+void Player::useJetpack(bool activate) {
+    this->isUsingJetpack=activate;
+}
+
+void Player::update(float deltaTime) {
     //Using the Jetpack
+    bool isInAir = (sprite.getPosition().y < 740 - sprite.getGlobalBounds().height);
+
+    if (isInAir) {
+        this->sprite.setTextureRect({225, 0, 75, 100});  // 4th stance
+    } else {
+        animator->update(deltaTime);
+    }
+
     if(isUsingJetpack)
         velocity.y=jetpackPower;
     else velocity.y=gravity;
@@ -62,13 +69,9 @@ void Player::update() {
 
 }
 
-
 void Player::render(sf::RenderTarget &target) const {
     target.draw(this->sprite);
 }
 
 
-void Player::useJetpack(bool activate) {
-    this->isUsingJetpack=activate;
-}
 
